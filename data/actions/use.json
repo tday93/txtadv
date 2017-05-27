@@ -1,0 +1,9 @@
+{
+  "class":"Use",
+  "i_name":"use",
+  "d_name":"Use",
+  "descriptions":[
+    {"flags":[],"description":"Use an item in your inventory"}
+  ],
+  "args":[]
+}

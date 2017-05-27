@@ -1,0 +1,11 @@
+{
+  "i_name":"testroom",
+  "d_name":"The Testing Room",
+  "descriptions":[
+    {"flags":[], "description": "A plain room with off-white walls. There is a single woodend door on the north wall"}
+  ],
+  "flags":[],
+  "exits":["wood_door"],
+  "actors":["playercharacter"],
+  "items":[]
+}

@@ -1,0 +1,14 @@
+{
+  "i_name":"other_door",
+  "d_name":"The Other Door",
+  "descriptions":[
+    {"flags":[],"description":"A different door"}
+  ],
+  "flags":[],
+  "room":"testroom",
+  "conditions":{
+    "usable":[],
+    "visible":[]
+  }
+}
+

@@ -1,0 +1,10 @@
+{
+  "i_name":"testitem",
+  "d_name":"The Holy Test Item",
+  "descriptions":[
+    {"flags":[],"description":"The Holiest of all Holy Test Items"}
+  ],
+  "flags":[],
+  "stats":{"holiness":9000},
+  "action":"test"
+}

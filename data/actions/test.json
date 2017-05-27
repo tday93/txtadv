@@ -1,0 +1,9 @@
+{
+  "class":"TestAction",
+  "i_name":"test",
+  "d_name":"Test",
+  "descriptions":[
+    {"flags":[],"description":"The testing action"}
+  ],
+  "args":[]
+}

@@ -1,0 +1,13 @@
+{
+  "class":"Player",
+  "i_name":"playercharacter",
+  "d_name":"The Player",
+  "descriptions":[
+    {"flags":[],"description":"The Player Actor"}
+  ],
+  "flags":[],
+  "stats":{},
+  "actions":["move","test", "examine", "use"],
+  "inventory":["testitem"]
+}
+

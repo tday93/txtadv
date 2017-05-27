@@ -1,0 +1,11 @@
+{
+  "i_name":"otherroom",
+  "d_name":"The Other Room",
+  "descriptions":[
+    {"flags":[], "description": "Test Room 2: Electric Boogaloo"}
+  ],
+  "flags":[],
+  "exits":["other_door"],
+  "actors":[],
+  "items":[]
+}

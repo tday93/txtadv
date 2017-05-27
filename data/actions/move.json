@@ -1,0 +1,9 @@
+{
+  "class":"Move",
+  "i_name":"move",
+  "d_name":"Move",
+  "descriptions":[
+    {"flags":[],"description":"Move through an exit"}
+  ],
+  "args":[]
+}

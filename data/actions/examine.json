@@ -1,0 +1,9 @@
+{
+  "class":"Examine",
+  "i_name":"examine",
+  "d_name":"Examine",
+  "descriptions":[
+    {"flags":[],"description":"Describe something"}
+  ],
+  "args":[]
+}
