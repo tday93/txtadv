@@ -5,7 +5,7 @@
     {"flags":[], "description": "Test Room 2: Electric Boogaloo"}
   ],
   "flags":[],
-  "exits":["other_door"],
+  "exits":[{"exit":"other_door", "room":"testroom"}],
   "actors":[],
   "items":[]
 }

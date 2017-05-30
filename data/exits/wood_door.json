@@ -5,7 +5,6 @@
     {"flags":[],"description":"A simple wooden door"}
   ],
   "flags":[],
-  "room":"otherroom",
   "conditions":{
     "usable":[],
     "visible":[]

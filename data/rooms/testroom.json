@@ -5,7 +5,7 @@
     {"flags":[], "description": "A plain room with off-white walls. There is a single woodend door on the north wall"}
   ],
   "flags":[],
-  "exits":["wood_door"],
+  "exits":[{"exit":"wood_door", "room":"otherroom"}],
   "actors":["playercharacter"],
   "items":[]
 }

@@ -1,5 +1,0 @@
-Action: VERB, done by an actor
-  !!! THEN ONLY THING THAT CHANGES STATE OF ANYTHING ELSE !!!
-
-Actor: Object that can use actions
-
