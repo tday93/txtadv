@@ -1,4 +1,4 @@
-from describable import Describable
+from game.describable import Describable
 
 
 class Flaggable(Describable):

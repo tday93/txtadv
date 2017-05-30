@@ -1,4 +1,4 @@
-from stattable import Stattable
+from game.stattable import Stattable
 
 
 class Actor(Stattable):

@@ -11,10 +11,16 @@ __license__ = "MIT"
 from optparse import OptionParser
 import logging
 import sys
+# local imports beow here
+from game import game
 
 
 def main(options):
     """ start your actual app here """
+    # check for saved games
+    # load saved game if desired
+    # start new game if not
+    game.main(options)
 
 
 if __name__ == "__main__":
@@ -34,10 +40,12 @@ if __name__ == "__main__":
 
     # additional options needed can go here
 
-    parser.add_option("-d", "--directory", dest="game_dir",
+    parser.add_option("-d", "--directory", dest="base_dir", default="./data",
                       help="The directory containing your game data")
-    parser.add_option("-s", "--savedir", dest="save_dir",
+    parser.add_option("-S", "--savedir", dest="save_dir", default="./saves",
                       help="The save game directory")
+    parser.add_option("-s", "--savename", dest="save_name", default="save1",
+                      help="The name for the saved game")
 
     # get args from optparse
     (options, args) = parser.parse_args()

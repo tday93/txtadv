@@ -1,11 +1,11 @@
-import datahandlers
+import pickle
+import os
+import sys
+import logging
+from . import datahandlers
 
-BASE_DIR = "./data"
-ITEM_DIR = BASE_DIR + "/items"
-ACTION_DIR = BASE_DIR + "/actions"
-ACTOR_DIR = BASE_DIR + "/actors"
-ROOM_DIR = BASE_DIR + "/rooms"
-EXIT_DIR = BASE_DIR + "/exits"
+
+logger = logging.getLogger("txtadv")
 
 
 class Game(object):
@@ -21,17 +21,16 @@ class Game(object):
         It is the parent object for the world object and action objects
     """
 
-    def __init__(self):
+    def __init__(self, base_dir):
+        self.base_dir = base_dir
         self.pc = None
         # load game
-        self.world = datahandlers.build_world(self, BASE_DIR)
+        self.world = datahandlers.build_world(self)
         self.actions = datahandlers.build_actions(self)
         # rooms, actors, and items are covered by build_rooms()
         self.rooms = datahandlers.build_rooms(self)
         self.world.rooms = self.rooms
         datahandlers.build_exits(self)
-        # start main game loop
-        # save game
 
     def game_loop(self):
         while True:
@@ -49,6 +48,28 @@ class Game(object):
         print(text)
 
 
+def save_game(save_file, game_obj):
+    with open(save_file, "wb") as fo:
+        pickle.dump(game_obj, fo)
+
+
+def load_game(save_file):
+    with open(save_file, "rb") as fn:
+        return pickle.load(fn)
+
+
+def main(options):
+    save_file = os.path.join(options.save_dir, options.save_name)
+    try:
+        if os.path.isfile(save_file):
+            game = load_game(save_file)
+        else:
+            game = Game(options.base_dir)
+        game.game_loop()
+    except KeyboardInterrupt:
+        save_game(save_file, game)
+        sys.exit(0)
+
+
 if __name__ == "__main__":
-    game = Game()
-    game.game_loop()
+    main()

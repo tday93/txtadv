@@ -1,4 +1,4 @@
-from flaggable import Flaggable
+from game.flaggable import Flaggable
 
 
 class Stattable(Flaggable):

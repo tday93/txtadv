@@ -1,23 +1,17 @@
-import datahelpers
 import os
-import actions
-import actor
-from world import World
-from room import Room
-from item import Item
-from exit import Exit
-
-BASE_DIR = "./data"
-ITEM_DIR = BASE_DIR + "/items"
-ACTION_DIR = BASE_DIR + "/actions"
-ACTOR_DIR = BASE_DIR + "/actors"
-ROOM_DIR = BASE_DIR + "/rooms"
-EXIT_DIR = BASE_DIR + "/exits"
+from game import datahelpers
+from game import actions
+from game import actor
+from game.world import World
+from game.room import Room
+from game.item import Item
+from game.exit import Exit
 
 
 def build_actions(game):
+    action_dir = game.base_dir + "/actions"
     built_actions = {}
-    actions_data = datahelpers.get_all_from_dir(ACTION_DIR)
+    actions_data = datahelpers.get_all_from_dir(action_dir)
     for action in actions_data:
         name = action[0]
         data = action[1]
@@ -31,8 +25,9 @@ def build_actions(game):
     return built_actions
 
 
-def build_world(game, dir):
-    data_dict = datahelpers.load_json(dir+"/world.json")
+def build_world(game):
+    world_file = game.base_dir + "/world.json"
+    data_dict = datahelpers.load_json(world_file)
     i_name = data_dict["i_name"]
     d_name = data_dict["d_name"]
     descriptions = data_dict["descriptions"]
@@ -43,8 +38,9 @@ def build_world(game, dir):
 
 
 def build_rooms(game):
+    room_dir = game.base_dir + "/rooms"
     built_rooms = {}
-    rooms = datahelpers.get_all_from_dir(ROOM_DIR)
+    rooms = datahelpers.get_all_from_dir(room_dir)
     for room in rooms:
         name = room[0]
         data_dict = room[1]
@@ -68,6 +64,7 @@ def build_rooms(game):
 
 
 def build_exits(game):
+    exit_dir = game.base_dir + "/exits"
     for room in game.rooms:
         built_exits = []
         for exit_data in game.rooms[room].exits:
@@ -75,7 +72,7 @@ def build_exits(game):
             print(exit_data)
             exit_name = exit_data["exit"]
             filename = exit_name + ".json"
-            path = os.path.join(EXIT_DIR, filename)
+            path = os.path.join(exit_dir, filename)
             data = datahelpers.load_json(path)
             i_name = data["i_name"]
             d_name = data["d_name"]
@@ -91,9 +88,10 @@ def build_exits(game):
 
 
 def build_actors(game, parent, actors):
+    actor_dir = game.base_dir + "/actors"
     built_actors = []
     for new_actor in actors:
-        built_actors.append(build_actor(game, ACTOR_DIR, new_actor, parent))
+        built_actors.append(build_actor(game, actor_dir, new_actor, parent))
     return built_actors
 
 
@@ -120,9 +118,10 @@ def build_actor(game, dir, name, parent):
 
 
 def build_items(game, parent, items):
+    item_dir = game.base_dir + "/items"
     built_items = []
     for item in items:
-        built_items.append(build_item(game, ITEM_DIR, item, parent))
+        built_items.append(build_item(game, item_dir, item, parent))
     return built_items
 
 

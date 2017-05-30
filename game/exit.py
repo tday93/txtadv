@@ -1,5 +1,5 @@
-from helpers import check_conditions
-from flaggable import Flaggable
+from game.helpers import check_conditions
+from game.flaggable import Flaggable
 
 
 class Exit(Flaggable):
