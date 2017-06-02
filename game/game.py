@@ -2,7 +2,7 @@ import pickle
 import os
 import sys
 import logging
-from . import datahandlers
+from game.helpers import datahandlers
 
 
 logger = logging.getLogger("txtadv")
@@ -60,6 +60,7 @@ def load_game(save_file):
 
 def main(options):
     save_file = os.path.join(options.save_dir, options.save_name)
+    # load saved game if save exists, otherwise start new game
     try:
         if os.path.isfile(save_file):
             game = load_game(save_file)

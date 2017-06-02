@@ -1,4 +1,4 @@
-from game.flaggable import Flaggable
+from game.baseclasses.flaggable import Flaggable
 
 
 class World(Flaggable):

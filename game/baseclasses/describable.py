@@ -1,4 +1,4 @@
-from game.helpers import check_conditions
+from game.helpers.helpers import check_conditions
 
 
 class Describable(object):

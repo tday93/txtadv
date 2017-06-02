@@ -1,11 +1,11 @@
 import os
-from game import datahelpers
-from game import actions
-from game import actor
-from game.world import World
-from game.room import Room
-from game.item import Item
-from game.exit import Exit
+from game.helpers import datahelpers
+from game.actions import actions
+from game.gameobjects import actor
+from game.gameobjects.world import World
+from game.gameobjects.room import Room
+from game.gameobjects.item import Item
+from game.gameobjects.exit import Exit
 
 
 def build_actions(game):
@@ -68,8 +68,6 @@ def build_exits(game):
     for room in game.rooms:
         built_exits = []
         for exit_data in game.rooms[room].exits:
-            print(type(exit_data))
-            print(exit_data)
             exit_name = exit_data["exit"]
             filename = exit_name + ".json"
             path = os.path.join(exit_dir, filename)
