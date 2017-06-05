@@ -9,6 +9,7 @@
   "conditions":{
     "usable":[],
     "visible":[]
-  }
+  },
+  "aliases":["door"]
 }
 

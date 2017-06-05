@@ -7,9 +7,9 @@ class Item(Stattable):
         this action is activated with the USE action by an actor """
 
     def __init__(self, i_name, d_name, descriptions,
-                 flags, parent, stats, action):
+                 flags, parent, stats, action, aliases=[]):
         super().__init__(i_name, d_name, descriptions,
-                         flags, parent, stats)
+                         flags, parent, stats, aliases)
         self.action = action
         self.category = "Item"
 

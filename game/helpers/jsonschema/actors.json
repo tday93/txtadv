@@ -1,0 +1,59 @@
+{
+  "$schema":"http://json-schema.org/draft-04/schema#",
+  "title": "World",
+  "description": "A world object",
+  "type": "object",
+  "properties":
+  {
+    "i_name":{
+      "description": "Internal Name",
+      "type":"string"
+    },
+    "d_name":{
+      "description":"Display Name",
+      "type": "string"
+    },
+    "descriptions":{
+      "description":"a list of descriptions",
+      "type": "array",
+      "items": {
+        "type":"object"
+      },
+      "minItems":1,
+      "uniqueItems": true
+    },
+    "flags":{
+      "description": "starting flags for the object",
+      "type":"array",
+      "items":{
+        "type":"string"
+      }
+    },
+    "aliases":{
+      "type":"array",
+      "items":{
+        "type":"string"
+      },
+      "uniqueItems": true
+    }, 
+    "stats":{
+      "type":"object",
+      "description": "the stats this actor has"
+    },
+    "actions":{
+      "type":"array",
+      "description": "a list of the actions this actor has available to it",
+      "items":{
+        "type":"string"
+      }
+    },
+    "inventory":{
+      "type":"array",
+      "items":{
+        "type":"string"
+      }
+    }
+  },
+  "required":["i_name", "d_name", "stats", "actions", "inventory", "descriptions", "flags", "aliases"]
+  
+}

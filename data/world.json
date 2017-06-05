@@ -4,5 +4,6 @@
   "descriptions":[
     {"flags":[],"description":"Its the Testiest and the Worldiest"}
   ],
-  "flags":[]
+  "flags":[],
+  "aliases":[]
 }

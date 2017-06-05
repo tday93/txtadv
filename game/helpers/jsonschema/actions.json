@@ -1,0 +1,46 @@
+{
+  "$schema":"http://json-schema.org/draft-04/schema#",
+  "title": "Action",
+  "description": "An action object",
+  "type": "object",
+  "properties":
+  {
+    "class":{
+      "description": "the class of this action",
+      "type":"string"
+    },
+    "i_name":{
+      "description": "Internal Name",
+      "type":"string"
+    },
+    "d_name":{
+      "description":"Display Name",
+      "type": "string"
+    },
+    "descriptions":{
+      "description":"a list of descriptions",
+      "type": "array",
+      "items": {
+        "type":"object"
+      },
+      "minItems":1,
+      "uniqueItems": true
+    },
+    "args":{
+      "description": "the args to be passed to this action on init",
+      "type": "array",
+      "items":{
+        "type": "string"
+      }
+    },
+    "aliases":{
+      "type":"array",
+      "items":{
+        "type":"string"
+      },
+      "uniqueItems": true
+    }
+  },
+  "required":["class","args", "i_name", "d_name", "descriptions", "aliases"]
+  
+}

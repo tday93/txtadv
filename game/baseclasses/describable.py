@@ -10,11 +10,12 @@ class Describable(object):
         They also have a reference to their parent object for convenience
         in referencing the state of that parent '''
 
-    def __init__(self, i_name, d_name, descriptions):
+    def __init__(self, i_name, d_name, descriptions, aliases=[]):
         self.i_name = i_name
         self.d_name = d_name
         self.category = "Describable"
         self.descriptions = descriptions
+        self.aliases = aliases
 
     def describe(self, actor):
         """ get the descriptions of this object,

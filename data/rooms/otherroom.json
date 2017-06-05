@@ -7,5 +7,6 @@
   "flags":[],
   "exits":[{"exit":"other_door", "room":"testroom"}],
   "actors":[],
-  "items":[]
+  "items":[],
+  "aliases":[]
 }

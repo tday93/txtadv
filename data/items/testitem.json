@@ -6,5 +6,6 @@
   ],
   "flags":[],
   "stats":{"holiness":9000},
-  "action":"test"
+  "action":"test",
+  "aliases":[]
 }

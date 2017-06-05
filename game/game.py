@@ -35,6 +35,7 @@ class Game(object):
     def game_loop(self):
         while True:
             p_input = self.input_text()
+            os.system("clear")
             cmd = p_input.split(" ", 1)[0]
             self.pc.use_action(cmd, p_input)
 

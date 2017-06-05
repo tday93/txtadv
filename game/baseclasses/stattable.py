@@ -7,6 +7,7 @@ class Stattable(Flaggable):
         {"stat_name":<int>}
         """
 
-    def __init__(self, i_name, d_name, descriptions, flags, parent, stats):
-        super().__init__(i_name, d_name, descriptions, flags, parent)
+    def __init__(self, i_name, d_name, descriptions,
+                 flags, parent, stats, aliases=[]):
+        super().__init__(i_name, d_name, descriptions, flags, parent, aliases)
         self.stats = stats

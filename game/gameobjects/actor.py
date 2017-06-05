@@ -12,8 +12,9 @@ class Actor(Stattable):
     """
 
     def __init__(self, i_name, d_name, descriptions, flags,
-                 parent, stats, actions, inventory):
-        super().__init__(i_name, d_name, descriptions, flags, parent, stats)
+                 parent, stats, actions, inventory, aliases=[]):
+        super().__init__(i_name, d_name, descriptions,
+                         flags, parent, stats, aliases)
         self.actions = actions
         self.inventory = inventory
         self.category = "Actor"
@@ -23,15 +24,6 @@ class Actor(Stattable):
             if action_i_name == action.i_name:
                 action.do_action(self, use_text)
 
-
-class Player(Actor):
-
-    """ player character actor
-        there should be only one of these in a game
-        (for the time being)
-    """
-
-    def __init__(self, i_name, d_name, descriptions, flags,
-                 parent, stats, actions, inventory):
-        super().__init__(i_name, d_name, descriptions, flags,
-                         parent, stats, actions, inventory)
+    def check_status(self):
+        # return status, might be used for killing things
+        pass

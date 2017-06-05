@@ -7,5 +7,6 @@
   "flags":[],
   "exits":[{"exit":"wood_door", "room":"otherroom"}],
   "actors":["playercharacter"],
-  "items":[]
+  "items":[],
+  "aliases":[]
 }

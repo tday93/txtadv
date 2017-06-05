@@ -13,8 +13,8 @@ class Exit(Flaggable):
     """
 
     def __init__(self, i_name, d_name, descriptions,
-                 flags, parent, c_room, conditions):
-        super().__init__(i_name, d_name, descriptions, flags, parent)
+                 flags, parent, c_room, conditions, aliases=[]):
+        super().__init__(i_name, d_name, descriptions, flags, parent, aliases)
         self.room = c_room
         self.conditions = conditions
         self.category = "Exit"

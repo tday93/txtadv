@@ -1,0 +1,11 @@
+{
+  "title":"game",
+  "description": "A game",
+  "type":"object",
+  "properties":{
+    "name":{
+      "description":"the name of this game",
+      "type":"string"
+    }
+  }
+}

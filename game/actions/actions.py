@@ -57,7 +57,7 @@ class Move(Action):
 
     def get_exit(self, actor, t_d_name):
         for exit in actor.parent.exits:
-            if t_d_name == exit.d_name:
+            if t_d_name == exit.d_name or t_d_name in exit.aliases:
                 if exit.usable(actor):
                     return exit
         return None
@@ -80,10 +80,13 @@ class Examine(Action):
 
     def do_action(self, actor, use_text):
         s_text = use_text.split(" ", 1)
+        if len(s_text) < 2:
+            s_text.append("all")
         t_name = s_text[1]
         examinables = self.get_examinables(actor)
         for item in examinables:
-            if t_name == item.d_name or t_name == item.i_name or t_name == "all":
+            if (t_name == item.d_name or t_name == item.i_name
+                    or t_name in item.aliases or t_name == "all"):
                 description = item.describe(actor)
                 # send text out
                 self.game.output_text(description)
@@ -108,5 +111,36 @@ class Use(Action):
         s_text = use_text.split(" ", 1)
         item_name = s_text[1]
         for item in actor.inventory:
-            if item_name.startswith(item.i_name) or item_name.startswith(item.d_name):
+            if (item_name.startswith(item.i_name)
+                    or item_name.startswith(item.d_name)):
+
                 item.use(actor, use_text)
+
+
+class Attack(Action):
+
+    def __init__(self, i_name, d_name, descriptions, game, *args):
+        super().__init__(i_name, d_name, descriptions, game, *args)
+
+    def do_action(self, actor, use_text):
+        s_text = use_text.split(" ", 1)
+        target = s_text[1]
+        for item in actor.parent.actors:
+            if (target == item.i_name or target == item.d_name
+                    or target in item.aliases):
+
+                self.combat_calc(actor, item)
+
+    def combat_calc(self, attacker, defender):
+        a_atk = attacker.stats["atk"]
+        d_def = defender.stats["def"]
+        dmg = a_atk - d_def
+        if dmg > 0:
+            defender.stats["hp"] = defender.stats["hp"] - dmg
+            defender.check_status()
+            self.game.output_text(
+                "You do {} damage to the {}".format(dmg, defender.d_name))
+        else:
+            msg = "You are too weak to hurt the {}".format(defender.d_name)
+            self.game.output_text(msg)
+

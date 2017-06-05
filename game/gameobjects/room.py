@@ -7,9 +7,9 @@ class Room(Flaggable):
         their parent is the world object """
 
     def __init__(self, i_name, d_name, descriptions,
-                 flags, parent, actors, exits, items):
+                 flags, parent, actors, exits, items, aliases=[]):
         super().__init__(i_name, d_name, descriptions,
-                         flags, parent)
+                         flags, parent, aliases)
         self.actors = actors
         self.items = items
         self.exits = exits

@@ -2,6 +2,7 @@ import os
 from game.helpers import datahelpers
 from game.actions import actions
 from game.gameobjects import actor
+from game.gameobjects import player
 from game.gameobjects.world import World
 from game.gameobjects.room import Room
 from game.gameobjects.item import Item
@@ -34,7 +35,8 @@ def build_world(game):
     flags = data_dict["flags"]
     parent = game
     rooms = []
-    return World(i_name, d_name, descriptions, flags, parent, rooms)
+    aliases = data_dict["aliases"]
+    return World(i_name, d_name, descriptions, flags, parent, rooms, aliases)
 
 
 def build_rooms(game):
@@ -52,8 +54,9 @@ def build_rooms(game):
         actors = data_dict["actors"]
         exits = data_dict["exits"]
         items = data_dict["items"]
+        aliases = data_dict["aliases"]
         new_room = Room(i_name, d_name, descriptions, flags,
-                        parent, actors, exits, items)
+                        parent, actors, exits, items, aliases)
         # loading in item objects after room is instantiated
         new_room.items = build_items(game, new_room, new_room.items)
         # loading in actor objects after room is instantiated
@@ -79,8 +82,9 @@ def build_exits(game):
             conditions = data["conditions"]
             parent = room
             c_room = game.rooms[exit_data["room"]]
+            aliases = data["aliases"]
             new_exit = Exit(i_name, d_name, descriptions,
-                            flags, parent, c_room, conditions)
+                            flags, parent, c_room, conditions, aliases)
             built_exits.append(new_exit)
         game.rooms[room].exits = built_exits
 
@@ -96,21 +100,25 @@ def build_actors(game, parent, actors):
 def build_actor(game, dir, name, parent):
     filename = name + ".json"
     path = os.path.join(dir, filename)
-    actor_data = datahelpers.load_json(path)
-    a_class = getattr(actor, actor_data["class"])
-    i_name = actor_data["i_name"]
-    d_name = actor_data["d_name"]
-    descriptions = actor_data["descriptions"]
-    flags = actor_data["flags"]
-    stats = actor_data["stats"]
-    actions = [game.actions[action] for action in actor_data["actions"]]
-    inventory = actor_data["inventory"]
+    data_dict = datahelpers.load_json(path)
+    if data_dict["class"] == "Player":
+        a_class = getattr(player, data_dict["class"])
+    else:
+        a_class = getattr(actor, data_dict["class"])
+    i_name = data_dict["i_name"]
+    d_name = data_dict["d_name"]
+    descriptions = data_dict["descriptions"]
+    flags = data_dict["flags"]
+    stats = data_dict["stats"]
+    actions = [game.actions[action] for action in data_dict["actions"]]
+    inventory = data_dict["inventory"]
+    aliases = data_dict["aliases"]
     new_actor = a_class(i_name, d_name, descriptions, flags,
-                        parent, stats, actions, inventory)
+                        parent, stats, actions, inventory, aliases)
     # loading item objects in inventory after actor object instantiated
     new_actor.inventory = build_items(game, new_actor,
                                       new_actor.inventory)
-    if isinstance(new_actor, actor.Player):
+    if isinstance(new_actor, player.Player):
         game.pc = new_actor
     return new_actor
 
@@ -126,11 +134,13 @@ def build_items(game, parent, items):
 def build_item(game, dir, name, parent):
     filename = name + ".json"
     path = os.path.join(dir, filename)
-    item_data = datahelpers.load_json(path)
-    i_name = item_data["i_name"]
-    d_name = item_data["d_name"]
-    descriptions = item_data["descriptions"]
-    flags = item_data["flags"]
-    stats = item_data["stats"]
-    action = game.actions[item_data["action"]]
-    return Item(i_name, d_name, descriptions, flags, parent, stats, action)
+    data_dict = datahelpers.load_json(path)
+    i_name = data_dict["i_name"]
+    d_name = data_dict["d_name"]
+    descriptions = data_dict["descriptions"]
+    flags = data_dict["flags"]
+    stats = data_dict["stats"]
+    action = game.actions[data_dict["action"]]
+    aliases = data_dict["aliases"]
+    return Item(i_name, d_name, descriptions, flags,
+                parent, stats, action, aliases)
