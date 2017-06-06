@@ -8,7 +8,7 @@
   "flags":[],
   "stats":{},
   "actions":["move","test", "examine", "use"],
-  "inventory":["testitem", "boop"],
+  "inventory":["testitem"],
   "aliases":[]
 }
 

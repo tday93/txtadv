@@ -53,12 +53,15 @@ def build_rooms(game):
         parent = game.world
         actors = data_dict["actors"]
         exits = data_dict["exits"]
-        items = data_dict["items"]
+        actions = data_dict["actions"]
+        stats = data_dict["stats"]
+        inventory = data_dict["inventory"]
         aliases = data_dict["aliases"]
         new_room = Room(i_name, d_name, descriptions, flags,
-                        parent, actors, exits, items, aliases)
+                        parent, stats, actions, inventory,
+                        actors, exits, aliases)
         # loading in item objects after room is instantiated
-        new_room.items = build_items(game, new_room, new_room.items)
+        new_room.items = build_items(game, new_room, new_room.inventory)
         # loading in actor objects after room is instantiated
         new_room.actors = build_actors(game, new_room, new_room.actors)
         built_rooms[name] = new_room

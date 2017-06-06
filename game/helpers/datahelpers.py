@@ -1,6 +1,7 @@
 # helper module to manage loading/saving game data
 import json
 import glob
+from collections import defaultdict
 from os.path import basename
 
 
@@ -21,4 +22,5 @@ def save_json(json_path, json_dict):
 def load_json(json_path):
     with open(json_path) as fn:
         json_dict = json.load(fn)
-    return json_dict
+        better_dict = defaultdict(lambda: {}, json_dict)
+    return better_dict

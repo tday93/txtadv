@@ -1,0 +1,9 @@
+{
+  "i_name":"INTERNAL WORLD NAME",
+  "d_name":"Display World Name",
+  "descriptions":[
+    {"flags":[],"description":"Default Description of World"}
+  ],
+  "flags":[],
+  "aliases":[]
+}

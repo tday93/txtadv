@@ -132,15 +132,30 @@ class Attack(Action):
                 self.combat_calc(actor, item)
 
     def combat_calc(self, attacker, defender):
+        if not defender.is_attackable():
+            self.game.output_text(
+                "{} is not attackable".format(defender.d_name))
         a_atk = attacker.stats["atk"]
         d_def = defender.stats["def"]
         dmg = a_atk - d_def
         if dmg > 0:
             defender.stats["hp"] = defender.stats["hp"] - dmg
-            defender.check_status()
             self.game.output_text(
                 "You do {} damage to the {}".format(dmg, defender.d_name))
+            if defender.stats["hp"] >= 0:
+                self.game.output_text(
+                    "You murdered the {}".format(defender.d_name))
+                defender.flags.append("lootable")
         else:
             msg = "You are too weak to hurt the {}".format(defender.d_name)
             self.game.output_text(msg)
 
+
+class Get(Action):
+    """ transfer an item from one actors inventory to another """
+
+    def __init__(self, i_name, d_name, descriptions, game, *args):
+        super().__init__(i_name, d_name, descriptions, game, *args)
+
+    def do_actions(self, actort, use_text):
+        pass

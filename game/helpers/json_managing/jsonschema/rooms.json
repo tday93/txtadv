@@ -58,13 +58,24 @@
         "type":"string"
       }
     },
-    "items":{
+    "stats":{
+      "type":"object",
+      "description": "the stats this actor has"
+    },
+    "actions":{
+      "type":"array",
+      "description": "a list of the actions this actor has available to it",
+      "items":{
+        "type":"string"
+      }
+    },
+    "inventory":{
       "type":"array",
       "items":{
         "type":"string"
       }
     }
   },
-  "required":["i_name", "d_name", "actors", "items", "exits", "descriptions", "flags", "aliases"]
+  "required":["i_name", "d_name", "actors", "inventory", "actions", "stats", "actions", "exits", "descriptions", "flags", "aliases"]
   
 }

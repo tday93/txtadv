@@ -1,0 +1,14 @@
+{
+  "class":"Actor",
+  "i_name":"internalactorname",
+  "d_name":"actor display name",
+  "descriptions":[
+    {"flags":[],"description":"actor description"}
+  ],
+  "flags":[],
+  "stats":{},
+  "actions":["test"],
+  "inventory":[],
+  "aliases":[]
+}
+

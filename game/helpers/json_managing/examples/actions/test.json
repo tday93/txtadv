@@ -1,0 +1,10 @@
+{
+  "class":"TestAction",
+  "i_name":"actioninternalname",
+  "d_name":"Action Display Name",
+  "descriptions":[
+    {"flags":[],"description":"Description of Action"}
+  ],
+  "args":[],
+  "aliases":[]
+}

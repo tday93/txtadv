@@ -24,6 +24,13 @@ class Actor(Stattable):
             if action_i_name == action.i_name:
                 action.do_action(self, use_text)
 
-    def check_status(self):
-        # return status, might be used for killing things
-        pass
+    def is_attackable(self):
+        if "hp" in self.stats and "def" in self.stats:
+            return True
+        return False
+
+    def is_lootable(self):
+        if "lootable" in self.flags:
+            return True
+        return False
+

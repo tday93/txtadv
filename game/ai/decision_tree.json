@@ -1,0 +1,14 @@
+{"actions":[
+  {"action":"action_name",
+    "usetext":"use text",
+    "conditions":{
+      "self":{
+        "flags":[],
+        "stats":[]
+      },
+      "actor":{},
+      "room":{}
+    },
+    "weight": 100
+  }
+  
