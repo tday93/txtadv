@@ -1,8 +1,8 @@
 import os
 from game.helpers import datahelpers
 from game.actions import actions
-from game.gameobjects import actor
-from game.gameobjects import player
+from game.gameobjects.actors import actor
+from game.gameobjects.actors import player
 from game.gameobjects.world import World
 from game.gameobjects.room import Room
 from game.gameobjects.item import Item

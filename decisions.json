@@ -1,0 +1,15 @@
+{
+  "decisions":[
+    "action_name":{
+      "conditions":{
+        "self":{},
+        "room":{},
+        "actor":{}
+      },
+      "target":"target i_name",
+      "use_text":"",
+      "weight": 20
+    }
+  ]
+}
+

@@ -19,10 +19,9 @@ class Actor(Stattable):
         self.inventory = inventory
         self.category = "Actor"
 
-    def use_action(self, action_i_name, use_text):
-        for action in self.actions:
-            if action_i_name == action.i_name:
-                action.do_action(self, use_text)
+    def use_action(self, action, target, use_text):
+        if action in self.actions:
+            action.do_action(self, target, use_text)
 
     def is_attackable(self):
         if "hp" in self.stats and "def" in self.stats:
@@ -33,4 +32,3 @@ class Actor(Stattable):
         if "lootable" in self.flags:
             return True
         return False
-

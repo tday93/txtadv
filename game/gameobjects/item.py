@@ -13,5 +13,5 @@ class Item(Stattable):
         self.action = action
         self.category = "Item"
 
-    def use(self, actor, use_text):
-        self.action.do_action(actor, use_text)
+    def use(self, actor, target, use_text):
+        self.action.do_action(actor, target, use_text)

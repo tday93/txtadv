@@ -1,4 +1,7 @@
+from game.gameobjects.exit import Exit
 from game.baseclasses.describable import Describable
+from game.gameobjects.actors.actor import Actor
+from game.gameobjects.item import Item
 
 
 class Action(Describable):
@@ -17,6 +20,22 @@ class Action(Describable):
             "go (Wooden Door)"
             "examine room"
 
+        REWRITE:
+
+            this needs to be re-done to account for non-player actors
+                ie, they shouldn't have to build use-text
+
+            do_action should take form:
+                do_action(self, act-er, target, use_text, *args, **kwargs)
+
+        ALLOWABLE TARGETS:
+            Self,
+            Other Actors,
+            The Room,
+            Items,
+            Exits,
+            Actions?
+
     '''
 
     def __init__(self, i_name, d_name, descriptions, game, *args):
@@ -24,7 +43,7 @@ class Action(Describable):
         self.game = game
         self.category = "Action"
 
-    def do_action(self, actor, use_text):
+    def do_action(self, actor, target, use_text):
         pass
 
 
@@ -33,7 +52,7 @@ class TestAction(Action):
     def __init__(self, i_name, d_name, descriptions, game, *args):
         super().__init__(i_name, d_name, descriptions, game, *args)
 
-    def do_action(self, actor, use_text):
+    def do_action(self, actor, target, use_text, **kwargs):
         self.game.output_text("This is the test action")
         self.game.output_text("You said: '{}'".format(use_text))
 
@@ -45,21 +64,13 @@ class Move(Action):
     def __init__(self, i_name, d_name, descriptions, game, *args):
         super().__init__(i_name, d_name, descriptions, game, *args)
 
-    def do_action(self, actor, use_text):
-        s_text = use_text.split(" ", 1)
-        t_d_name = s_text[1]
+    def do_action(self, actor, target, use_text, **kwargs):
         current_room = actor.parent
-        exit = self.get_exit(actor, t_d_name)
-        if exit:
+        if isinstance(target, Exit) and target.usable(actor):
             current_room.actors.remove(actor)
-            actor.parent = exit.room
-            exit.room.actors.append(actor)
+            actor.parent = target.room
+            target.room.actors.append(actor)
 
-    def get_exit(self, actor, t_d_name):
-        for exit in actor.parent.exits:
-            if t_d_name == exit.d_name or t_d_name in exit.aliases:
-                if exit.usable(actor):
-                    return exit
         return None
 
 
@@ -73,31 +84,22 @@ class Examine(Action):
             exits in current room
             actors in current room
             actions the player has
+
     """
 
     def __init__(self, i_name, d_name, descriptions, game, *args):
         super().__init__(i_name, d_name, descriptions, game, *args)
 
-    def do_action(self, actor, use_text):
-        s_text = use_text.split(" ", 1)
-        if len(s_text) < 2:
-            s_text.append("all")
-        t_name = s_text[1]
-        examinables = self.get_examinables(actor)
-        for item in examinables:
-            if (t_name == item.d_name or t_name == item.i_name
-                    or t_name in item.aliases or t_name == "all"):
-                description = item.describe(actor)
-                # send text out
-                self.game.output_text(description)
+    def do_action(self, actor, target, use_text, **kwargs):
 
-    def get_examinables(self, actor):
-        actions = actor.actions
-        items = actor.inventory
-        room = [actor.parent]
-        exits = actor.parent.exits
-        actors = actor.parent.actors
-        return items + room + exits + actors + actions
+        if isinstance(target, Describable):
+            description = target.describe(actor)
+            self.game.output_text(description)
+        elif isinstance(target, list):
+            for item in target:
+                if isinstance(item, Describable):
+                    description = item.describe(actor)
+                    self.game.output_text(description)
 
 
 class Use(Action):
@@ -107,29 +109,21 @@ class Use(Action):
     def __init__(self, i_name, d_name, descriptions, game, *args):
         super().__init__(i_name, d_name, descriptions, game, *args)
 
-    def do_action(self, actor, use_text):
-        s_text = use_text.split(" ", 1)
-        item_name = s_text[1]
-        for item in actor.inventory:
-            if (item_name.startswith(item.i_name)
-                    or item_name.startswith(item.d_name)):
+    def do_action(self, actor, target, use_text, **kwargs):
+        if isinstance(target, Item):
+                target.use(actor, target, use_text)
 
-                item.use(actor, use_text)
-
+    def swap_target(self, actor, use_text):
 
 class Attack(Action):
 
     def __init__(self, i_name, d_name, descriptions, game, *args):
         super().__init__(i_name, d_name, descriptions, game, *args)
 
-    def do_action(self, actor, use_text):
-        s_text = use_text.split(" ", 1)
-        target = s_text[1]
-        for item in actor.parent.actors:
-            if (target == item.i_name or target == item.d_name
-                    or target in item.aliases):
+    def do_action(self, actor, target, use_text, kwargs**):
 
-                self.combat_calc(actor, item)
+        if isinstance(target, Actor) and target.is_attackable():
+            self.combat_calc(actor, target)
 
     def combat_calc(self, attacker, defender):
         if not defender.is_attackable():
@@ -157,5 +151,5 @@ class Get(Action):
     def __init__(self, i_name, d_name, descriptions, game, *args):
         super().__init__(i_name, d_name, descriptions, game, *args)
 
-    def do_actions(self, actort, use_text):
+    def do_actions(self, actor, target, use_text, **kwargs):
         pass

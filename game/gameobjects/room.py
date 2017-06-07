@@ -1,4 +1,4 @@
-from game.gameobjects.actor import Actor
+from game.gameobjects.actors.actor import Actor
 
 
 class Room(Actor):

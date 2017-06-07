@@ -1,0 +1,15 @@
+{
+  "actions":[
+    {"action":"action_name",
+      "target":, "target_class",
+      "conditions":{
+        "self":{},
+        "room":{},
+        "target":{}
+      },
+      "weight":50
+    }
+  ]
+}
+
+

@@ -3,7 +3,7 @@ import os
 import sys
 import logging
 from game.helpers import datahandlers
-
+from game.helpers.input_parse import parse_player_input as parse_input
 
 logger = logging.getLogger("txtadv")
 
@@ -36,10 +36,15 @@ class Game(object):
         while True:
             # world acts
             # player acts
-            p_input = self.input_text()
+            player_input = self.input_text()
             os.system("clear")
-            cmd = p_input.split(" ", 1)[0]
-            self.pc.use_action(cmd, p_input)
+            # REWRITE HAPPENING HERE
+            try:
+                action, target, extra = parse_input(self, self.pc,
+                                                    player_input)
+                self.pc.use_action(action, target, player_input, **extra)
+            except Exception as e:
+                pass
             # npcs act
 
     def input_text(self):
