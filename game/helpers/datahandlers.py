@@ -21,8 +21,10 @@ def build_actions(game):
         d_name = data["d_name"]
         descriptions = data["descriptions"]
         a_args = data["args"]
-        built_actions[name] = a_class(i_name, d_name,
-                                      descriptions, game, *a_args)
+        aliases = data["aliases"]
+        built_actions[name] = a_class(game, i_name=i_name, d_name=d_name,
+                                      descriptions=descriptions,
+                                      aliases=aliases, a_args=a_args)
     return built_actions
 
 
@@ -36,7 +38,9 @@ def build_world(game):
     parent = game
     rooms = []
     aliases = data_dict["aliases"]
-    return World(i_name, d_name, descriptions, flags, parent, rooms, aliases)
+    return World(parent, i_name=i_name, d_name=d_name,
+                 descriptions=descriptions, flags=flags,
+                 rooms=rooms, aliases=aliases)
 
 
 def build_rooms(game):
@@ -57,9 +61,10 @@ def build_rooms(game):
         stats = data_dict["stats"]
         inventory = data_dict["inventory"]
         aliases = data_dict["aliases"]
-        new_room = Room(i_name, d_name, descriptions, flags,
-                        parent, stats, actions, inventory,
-                        actors, exits, aliases)
+        new_room = Room(parent, i_name=i_name, d_name=d_name,
+                        descriptions=descriptions, flags=flags,
+                        stats=stats, actions=actions, inventory=inventory,
+                        actors=actors, exits=exits, aliases=aliases)
         # loading in item objects after room is instantiated
         new_room.items = build_items(game, new_room, new_room.inventory)
         # loading in actor objects after room is instantiated
@@ -86,8 +91,11 @@ def build_exits(game):
             parent = room
             c_room = game.rooms[exit_data["room"]]
             aliases = data["aliases"]
-            new_exit = Exit(i_name, d_name, descriptions,
-                            flags, parent, c_room, conditions, aliases)
+            new_exit = Exit(i_name=i_name, d_name=d_name,
+                            descriptions=descriptions,
+                            flags=flags, parent=parent,
+                            c_room=c_room, conditions=conditions,
+                            aliases=aliases)
             built_exits.append(new_exit)
         game.rooms[room].exits = built_exits
 
@@ -116,8 +124,10 @@ def build_actor(game, dir, name, parent):
     actions = [game.actions[action] for action in data_dict["actions"]]
     inventory = data_dict["inventory"]
     aliases = data_dict["aliases"]
-    new_actor = a_class(i_name, d_name, descriptions, flags,
-                        parent, stats, actions, inventory, aliases)
+    new_actor = a_class(parent, i_name=i_name, d_name=d_name,
+                        descriptions=descriptions, flags=flags,
+                        stats=stats, actions=actions,
+                        inventory=inventory, aliases=aliases)
     # loading item objects in inventory after actor object instantiated
     new_actor.inventory = build_items(game, new_actor,
                                       new_actor.inventory)
@@ -145,5 +155,6 @@ def build_item(game, dir, name, parent):
     stats = data_dict["stats"]
     action = game.actions[data_dict["action"]]
     aliases = data_dict["aliases"]
-    return Item(i_name, d_name, descriptions, flags,
-                parent, stats, action, aliases)
+    return Item(parent, i_name=i_name, d_name=d_name,
+                descriptions=descriptions, flags=flags,
+                stats=stats, action=action, aliases=aliases)

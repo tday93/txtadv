@@ -5,10 +5,9 @@ class World(Flaggable):
     """ the world object holds all rooms, and global flags
         its parent is the game object """
 
-    def __init__(self, i_name, d_name, descriptions,
-                 flags, parent, rooms, aliases=[]):
-        super().__init__(i_name, d_name, descriptions, flags, parent, aliases)
-        self.rooms = rooms
+    def __init__(self, parent, **kw):
+        super().__init__(parent, **kw)
+        self.rooms = kw["rooms"]
         self.category = "World"
 
     def get_room(self, room_name):

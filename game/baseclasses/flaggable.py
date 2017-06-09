@@ -5,10 +5,9 @@ class Flaggable(Describable):
     """ anything that can have flags applied to it
         Flaggables are always nouns, and always have a parent """
 
-    def __init__(self, i_name, d_name, descriptions,
-                 flags, parent, aliases=[]):
-        super().__init__(i_name, d_name, descriptions, aliases)
-        self.flags = flags
+    def __init__(self, parent, **kw):
+        super().__init__(**kw)
+        self.flags = kw["flags"]
         self.parent = parent
 
     def get_flags(self):

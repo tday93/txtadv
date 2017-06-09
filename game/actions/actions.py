@@ -38,9 +38,9 @@ class Action(Describable):
 
     '''
 
-    def __init__(self, i_name, d_name, descriptions, game, *args):
-        super().__init__(i_name, d_name, descriptions)
-        self.game = game
+    def __init__(self, parent, **kw):
+        super().__init__(**kw)
+        self.game = parent
         self.category = "Action"
 
     def do_action(self, actor, target, **kwargs):
@@ -49,8 +49,8 @@ class Action(Describable):
 
 class TestAction(Action):
 
-    def __init__(self, i_name, d_name, descriptions, game, *args):
-        super().__init__(i_name, d_name, descriptions, game, *args)
+    def __init__(self, parent, **kw):
+        super().__init__(parent, **kw)
 
     def do_action(self, actor, target, **kwargs):
         self.game.output_text("This is the test action")
@@ -64,8 +64,8 @@ class Move(Action):
 
     """ moves an actor through an exit, if exit is usable """
 
-    def __init__(self, i_name, d_name, descriptions, game, *args):
-        super().__init__(i_name, d_name, descriptions, game, *args)
+    def __init__(self, parent, **kw):
+        super().__init__(parent, **kw)
 
     def do_action(self, actor, target, **kwargs):
         current_room = actor.parent
@@ -90,8 +90,8 @@ class Examine(Action):
 
     """
 
-    def __init__(self, i_name, d_name, descriptions, game, *args):
-        super().__init__(i_name, d_name, descriptions, game, *args)
+    def __init__(self, parent, **kw):
+        super().__init__(parent, **kw)
 
     def do_action(self, actor, target, **kwargs):
 
@@ -109,8 +109,8 @@ class Use(Action):
 
     """ use an items attached action """
 
-    def __init__(self, i_name, d_name, descriptions, game, *args):
-        super().__init__(i_name, d_name, descriptions, game, *args)
+    def __init__(self, parent, **kw):
+        super().__init__(parent, **kw)
 
     def do_action(self, actor, target, **kwargs):
         if isinstance(target, Item):
@@ -119,8 +119,8 @@ class Use(Action):
 
 class Attack(Action):
 
-    def __init__(self, i_name, d_name, descriptions, game, *args):
-        super().__init__(i_name, d_name, descriptions, game, *args)
+    def __init__(self, parent, **kw):
+        super().__init__(parent, **kw)
 
     def do_action(self, actor, target, **kwargs):
 
@@ -150,8 +150,8 @@ class Attack(Action):
 class Get(Action):
     """ transfer an item from one actors inventory to another """
 
-    def __init__(self, i_name, d_name, descriptions, game, *args):
-        super().__init__(i_name, d_name, descriptions, game, *args)
+    def __init__(self, parent, **kw):
+        super().__init__(parent, **kw)
 
     def do_actions(self, actor, target, **kwargs):
         pass

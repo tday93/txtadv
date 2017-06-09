@@ -8,7 +8,5 @@ class Player(Actor):
         (for the time being)
     """
 
-    def __init__(self, i_name, d_name, descriptions, flags,
-                 parent, stats, actions, inventory, aliases=[]):
-        super().__init__(i_name, d_name, descriptions, flags,
-                         parent, stats, actions, inventory, aliases)
+    def __init__(self, parent, **kw):
+        super().__init__(parent, **kw)

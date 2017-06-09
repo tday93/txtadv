@@ -11,12 +11,10 @@ class Actor(Stattable):
         inventory = list of item objects
     """
 
-    def __init__(self, i_name, d_name, descriptions, flags,
-                 parent, stats, actions, inventory, aliases=[]):
-        super().__init__(i_name, d_name, descriptions,
-                         flags, parent, stats, aliases)
-        self.actions = actions
-        self.inventory = inventory
+    def __init__(self, parent, **kw):
+        super().__init__(parent, **kw)
+        self.actions = kw["actions"]
+        self.inventory = kw["inventory"]
         self.category = "Actor"
 
     def use_action(self, action, target, **kwargs):
@@ -32,3 +30,15 @@ class Actor(Stattable):
         if "lootable" in self.flags:
             return True
         return False
+
+    def get_all_targets(self):
+        other_actors = self.parent.actors
+        room = [self.parent]
+        items = self.inventory
+
+        return other_actors + room + items + [self]
+
+    def get_action_from_i_name(self, i_name):
+        for action in self.actions:
+            if action.i_name == i_name:
+                return action
