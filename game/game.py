@@ -42,9 +42,9 @@ class Game(object):
             try:
                 action, target, extra = parse_input(self, self.pc,
                                                     player_input)
-                self.pc.use_action(action, target, player_input, **extra)
+                self.pc.use_action(action, target, **extra)
             except Exception as e:
-                pass
+                raise e
             # npcs act
 
     def input_text(self):

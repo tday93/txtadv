@@ -1,0 +1,13 @@
+{
+  "actions":[
+    {"action":"action_i_name",
+      "target":{
+        "flags":["target", "flags"]
+      },
+      "weight":40
+    }
+  ]
+}
+
+
+

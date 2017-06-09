@@ -26,7 +26,7 @@ class Action(Describable):
                 ie, they shouldn't have to build use-text
 
             do_action should take form:
-                do_action(self, act-er, target, use_text, *args, **kwargs)
+                do_action(self, act-er, target, *args, **kwargs)
 
         ALLOWABLE TARGETS:
             Self,
@@ -43,7 +43,7 @@ class Action(Describable):
         self.game = game
         self.category = "Action"
 
-    def do_action(self, actor, target, use_text):
+    def do_action(self, actor, target, **kwargs):
         pass
 
 
@@ -52,9 +52,12 @@ class TestAction(Action):
     def __init__(self, i_name, d_name, descriptions, game, *args):
         super().__init__(i_name, d_name, descriptions, game, *args)
 
-    def do_action(self, actor, target, use_text, **kwargs):
+    def do_action(self, actor, target, **kwargs):
         self.game.output_text("This is the test action")
-        self.game.output_text("You said: '{}'".format(use_text))
+        self.game.output_text("You said: '{}'".format(kwargs["use_text"]))
+        self.game.output_text("kwargs are:")
+        for k, v in kwargs.items():
+            self.game.output_text("{} : {}".format(k, v))
 
 
 class Move(Action):
@@ -64,7 +67,7 @@ class Move(Action):
     def __init__(self, i_name, d_name, descriptions, game, *args):
         super().__init__(i_name, d_name, descriptions, game, *args)
 
-    def do_action(self, actor, target, use_text, **kwargs):
+    def do_action(self, actor, target, **kwargs):
         current_room = actor.parent
         if isinstance(target, Exit) and target.usable(actor):
             current_room.actors.remove(actor)
@@ -90,7 +93,7 @@ class Examine(Action):
     def __init__(self, i_name, d_name, descriptions, game, *args):
         super().__init__(i_name, d_name, descriptions, game, *args)
 
-    def do_action(self, actor, target, use_text, **kwargs):
+    def do_action(self, actor, target, **kwargs):
 
         if isinstance(target, Describable):
             description = target.describe(actor)
@@ -109,18 +112,17 @@ class Use(Action):
     def __init__(self, i_name, d_name, descriptions, game, *args):
         super().__init__(i_name, d_name, descriptions, game, *args)
 
-    def do_action(self, actor, target, use_text, **kwargs):
+    def do_action(self, actor, target, **kwargs):
         if isinstance(target, Item):
-                target.use(actor, target, use_text)
+                target.use(actor, target, **kwargs)
 
-    def swap_target(self, actor, use_text):
 
 class Attack(Action):
 
     def __init__(self, i_name, d_name, descriptions, game, *args):
         super().__init__(i_name, d_name, descriptions, game, *args)
 
-    def do_action(self, actor, target, use_text, kwargs**):
+    def do_action(self, actor, target, **kwargs):
 
         if isinstance(target, Actor) and target.is_attackable():
             self.combat_calc(actor, target)
@@ -151,5 +153,5 @@ class Get(Action):
     def __init__(self, i_name, d_name, descriptions, game, *args):
         super().__init__(i_name, d_name, descriptions, game, *args)
 
-    def do_actions(self, actor, target, use_text, **kwargs):
+    def do_actions(self, actor, target, **kwargs):
         pass

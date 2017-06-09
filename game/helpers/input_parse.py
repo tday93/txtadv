@@ -16,21 +16,22 @@
 
 
 def parse_player_input(game, player, use_text):
-        extra = {}
-        s_text = use_text.split(" ")
-        a_name = s_text[0]
-        action = get_action(player, a_name)
-        if len(s_text) == 1:
-            s_text.append("all")
-        if len(s_text) == 2:
-            t_name = s_text[1]
-            target = get_target(player, t_name)
-        if len(s_text) == 3:
-            s_name = s_text[2]
-            subject = get_target(player, s_name)
-            extra["subject"] = subject
+    extra = {"use_text": use_text}
+    s_text = use_text.split(" ")
+    a_name = s_text[0]
+    action = get_action(player, a_name)
+    if len(s_text) >= 1:
+        s_text.append("all")
+    if len(s_text) >= 2:
+        t_name = s_text[1]
+        target = get_target(player, t_name)
+    if len(s_text) >= 3:
+        s_name = s_text[2]
+        subject = get_target(player, s_name)
+        extra["subject"] = subject
 
-        return action, target, extra
+    return action, target, extra
+
 
 def get_action(player, a_name):
 
