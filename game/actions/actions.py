@@ -123,7 +123,6 @@ class Attack(Action):
         super().__init__(parent, **kw)
 
     def do_action(self, actor, target, **kwargs):
-
         if isinstance(target, Actor) and target.is_attackable():
             self.combat_calc(actor, target)
 
@@ -137,8 +136,9 @@ class Attack(Action):
         if dmg > 0:
             defender.stats["hp"] = defender.stats["hp"] - dmg
             self.game.output_text(
-                "You do {} damage to the {}".format(dmg, defender.d_name))
-            if defender.stats["hp"] >= 0:
+                "{} does {} damage to {}".format(attacker.d_name,
+                                                 dmg, defender.d_name))
+            if defender.stats["hp"] <= 0:
                 self.game.output_text(
                     "You murdered the {}".format(defender.d_name))
                 defender.flags.append("lootable")

@@ -18,8 +18,9 @@ class Actor(Stattable):
         self.category = "Actor"
 
     def use_action(self, action, target, **kwargs):
-        if action in self.actions:
-            action.do_action(self, target, **kwargs)
+        if action is not None and target is not None:
+            if action in self.actions:
+                action.do_action(self, target, **kwargs)
 
     def is_attackable(self):
         if "hp" in self.stats and "def" in self.stats:
@@ -42,3 +43,11 @@ class Actor(Stattable):
         for action in self.actions:
             if action.i_name == i_name:
                 return action
+
+    def get_target(self, i_name):
+        for target in self.get_all_targets():
+            if target.i_name == i_name:
+                return target
+
+    def do_action(self):
+        pass

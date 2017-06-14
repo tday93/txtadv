@@ -5,6 +5,6 @@
   "descriptions":[
     {"flags":[],"description":"Describe something"}
   ],
-  "args":[],
+  "a_args":[],
   "aliases":[]
 }

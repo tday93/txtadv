@@ -11,5 +11,5 @@ class Item(Stattable):
         self.action = kw["action"]
         self.category = "Item"
 
-    def use(self, actor, target, use_text, **kwargs):
-        self.action.do_action(actor, target, use_text, **kwargs)
+    def use(self, actor, target, **kwargs):
+        self.action.do_action(actor, target, **kwargs)

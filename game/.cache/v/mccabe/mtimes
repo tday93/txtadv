@@ -1,0 +1,98 @@
+{
+  "/home/tday/projects/games/txtadvmk4/game/__init__.py": [
+    1496164285.6466668,
+    7
+  ],
+  "/home/tday/projects/games/txtadvmk4/game/actions/__init__.py": [
+    1496424825.9133334,
+    7
+  ],
+  "/home/tday/projects/games/txtadvmk4/game/actions/actions.py": [
+    1497032370.5933332,
+    7
+  ],
+  "/home/tday/projects/games/txtadvmk4/game/api/__init__.py": [
+    1496424855.5533333,
+    7
+  ],
+  "/home/tday/projects/games/txtadvmk4/game/baseclasses/__init__.py": [
+    1496425078.77,
+    7
+  ],
+  "/home/tday/projects/games/txtadvmk4/game/baseclasses/describable.py": [
+    1497032461.2566667,
+    7
+  ],
+  "/home/tday/projects/games/txtadvmk4/game/baseclasses/flaggable.py": [
+    1497030972.22,
+    7
+  ],
+  "/home/tday/projects/games/txtadvmk4/game/baseclasses/stattable.py": [
+    1497031030.5866666,
+    7
+  ],
+  "/home/tday/projects/games/txtadvmk4/game/game.py": [
+    1496947228.6333334,
+    7
+  ],
+  "/home/tday/projects/games/txtadvmk4/game/gameobjects/__init__.py": [
+    1496424668.57,
+    7
+  ],
+  "/home/tday/projects/games/txtadvmk4/game/gameobjects/actors/__init__.py": [
+    1496785372.4766667,
+    7
+  ],
+  "/home/tday/projects/games/txtadvmk4/game/gameobjects/actors/actor.py": [
+    1497038047.7766666,
+    7
+  ],
+  "/home/tday/projects/games/txtadvmk4/game/gameobjects/actors/autoactor.py": [
+    1497031942.0266666,
+    7
+  ],
+  "/home/tday/projects/games/txtadvmk4/game/gameobjects/actors/player.py": [
+    1497031868.32,
+    7
+  ],
+  "/home/tday/projects/games/txtadvmk4/game/gameobjects/exit.py": [
+    1497031549.5133333,
+    7
+  ],
+  "/home/tday/projects/games/txtadvmk4/game/gameobjects/item.py": [
+    1497031609.2233334,
+    7
+  ],
+  "/home/tday/projects/games/txtadvmk4/game/gameobjects/room.py": [
+    1497031661.3766668,
+    7
+  ],
+  "/home/tday/projects/games/txtadvmk4/game/gameobjects/world.py": [
+    1497031788.09,
+    7
+  ],
+  "/home/tday/projects/games/txtadvmk4/game/helpers/__init__.py": [
+    1496424701.4033334,
+    7
+  ],
+  "/home/tday/projects/games/txtadvmk4/game/helpers/datahandlers.py": [
+    1497032603.8966668,
+    7
+  ],
+  "/home/tday/projects/games/txtadvmk4/game/helpers/datahelpers.py": [
+    1496771793.88,
+    7
+  ],
+  "/home/tday/projects/games/txtadvmk4/game/helpers/helpers.py": [
+    1497030225.7333333,
+    7
+  ],
+  "/home/tday/projects/games/txtadvmk4/game/helpers/input_parse.py": [
+    1496947083.84,
+    7
+  ],
+  "/home/tday/projects/games/txtadvmk4/game/helpers/json_managing/json_linter.py": [
+    1496771914.1366668,
+    7
+  ]
+}

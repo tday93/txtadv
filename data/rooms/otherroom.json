@@ -6,7 +6,7 @@
   ],
   "flags":[],
   "exits":[{"exit":"other_door", "room":"testroom"}],
-  "actors":[],
+  "actors":["giantspider"],
   "inventory":[],
   "stats":{},
   "actions":[],

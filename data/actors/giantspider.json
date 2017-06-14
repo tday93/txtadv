@@ -1,0 +1,19 @@
+{
+  "class":"AutoActor",
+  "i_name":"giantspider",
+  "d_name":"Giant Spider",
+  "descriptions":[
+    {"flags":[],"description":"A Giant Spider"}
+  ],
+  "flags":[],
+  "stats":{
+    "atk":1,
+    "def":1,
+    "hp":10
+  },
+  "actions":["move","test", "attack", "use"],
+  "inventory":[],
+  "aliases":[],
+  "script_name":"basicenemy"
+}
+

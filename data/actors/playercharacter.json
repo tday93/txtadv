@@ -6,8 +6,12 @@
     {"flags":[],"description":"The Player Actor"}
   ],
   "flags":[],
-  "stats":{},
-  "actions":["move","test", "examine", "use"],
+  "stats":{
+    "atk":5,
+    "def":0,
+    "hp":100
+  },
+  "actions":["move","test", "attack", "examine", "use"],
   "inventory":["testitem"],
   "aliases":[]
 }

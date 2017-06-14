@@ -1,0 +1,10 @@
+{
+  "class":"Attack",
+  "i_name":"attack",
+  "d_name":"Attack",
+  "descriptions":[
+    {"flags":[],"description":"Attack another actor"}
+  ],
+  "args":[],
+  "aliases":[]
+}
