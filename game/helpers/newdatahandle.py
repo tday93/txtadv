@@ -10,6 +10,16 @@ from game.gameobjects.item import Item
 from game.gameobjects.exit import Exit
 
 
+"""
+
+GOALS:
+    EVERY OBJECT IS FLAT
+    EVERY OBJECT HOLDS ITS LOCATION
+
+
+"""
+
+
 def build_actions(game):
     action_dir = game.base_dir + "/actions"
     built_actions = {}
@@ -37,10 +47,6 @@ def build_rooms(game):
         data = room[1]
         parent = game.world
         new_room = Room(parent, **data)
-        # loading in item objects after room is instantiated
-        new_room.items = build_items(game, new_room, new_room.inventory)
-        # loading in actor objects after room is instantiated
-        new_room.actors = build_actors(game, new_room, new_room.actors)
         built_rooms[name] = new_room
 
     return built_rooms

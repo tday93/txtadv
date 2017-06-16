@@ -1,3 +1,4 @@
+import importlib
 from game.baseclasses.stattable import Stattable
 
 
@@ -51,3 +52,43 @@ class Actor(Stattable):
 
     def do_action(self):
         pass
+
+    @staticmethod
+    def get_actor(parent, **kw):
+        if kw["class"] == "Actor":
+            return Actor(parent, **kw)
+        elif kw["class"] == "Player":
+            return Player(parent, **kw)
+        elif kw["class"] == "AutoActor":
+            return AutoActor(parent, **kw)
+
+
+class Player(Actor):
+
+    """ player character actor
+        there should be only one of these in a game
+        (for the time being)
+    """
+
+    def __init__(self, parent, **kw):
+        super().__init__(parent, **kw)
+
+
+class AutoActor(Actor):
+    """
+        an auto actor is an actor that can act autonomously,
+        without direct player action
+    """
+
+    def __init__(self, parent, **kw):
+        super().__init__(parent, **kw)
+        self.script_dir = kw["script_dir"]
+        self.script_name = kw["script_name"]
+        self.load_script()
+
+    def load_script(self):
+        self.script_mod = importlib.import_module(self.script_name)
+        self.script = self.script_mod.get_script()
+
+    def do_action(self):
+        self.script(self)

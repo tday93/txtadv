@@ -46,6 +46,23 @@ class Action(Describable):
     def do_action(self, actor, target, **kwargs):
         pass
 
+    @staticmethod
+    def get_action(parent, **kw):
+        if kw["class"] == "TestAction":
+            return TestAction(parent, **kw)
+        elif kw["class"] == "Move":
+            return Move(parent, **kw)
+        elif kw["class"] == "Examine":
+            return Examine(parent, **kw)
+        elif kw["class"] == "Attack":
+            return Attack(parent, **kw)
+        elif kw["class"] == "Use":
+            return Use(parent, **kw)
+        elif kw["class"] == "Get":
+            return Get(parent, **kw)
+        else:
+            raise KeyError
+
 
 class TestAction(Action):
 

@@ -1,7 +1,7 @@
 import dill as pickle
 import os
-import sys
 import logging
+import atexit
 from ui import Commander
 from game.helpers import datahandlers
 from game.helpers.input_parse import parse_player_input as parse_input
@@ -73,15 +73,11 @@ def main(options):
     save_file = os.path.join(options.save_dir, options.save_name)
     # load saved game if save exists, otherwise start new game
 
-    try:
-        if os.path.isfile(save_file):
-            game = load_game(save_file)
-        else:
-            game = Game(options.base_dir)
-    except KeyboardInterrupt:
-        save_game(save_file, game)
-        sys.exit(0)
-
+    if os.path.isfile(save_file):
+        game = load_game(save_file)
+    else:
+        game = Game(options.base_dir)
+    atexit.register(save_game, save_file, game)
     c = Commander('ADVENTURE THE GAME', game)
     # start main loop
     game.set_ui(c)
