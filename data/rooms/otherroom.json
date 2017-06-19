@@ -5,7 +5,23 @@
     {"flags":[], "description": "Test Room 2: Electric Boogaloo"}
   ],
   "flags":[],
-  "exits":[{"exit":"other_door", "room":"testroom"}],
+  "exits":[
+    {
+      "i_name":"other_door",
+      "d_name":"The Other Door",
+      "c_room":"testroom",
+      "descriptions":[
+        {"flags":[],"description":"A different door"}
+      ],
+      "flags":[],
+      "room":"testroom",
+      "conditions":{
+        "usable":[],
+        "visible":[]
+      },
+      "aliases":["door"]
+    }
+  ],
   "actors":["giantspider"],
   "inventory":[],
   "stats":{},

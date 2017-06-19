@@ -1,9 +1,6 @@
-import os
-import sys
 from game.helpers import datahelpers
 from game.actions import actions
 from game.gameobjects.actors.actor import Actor
-from game.gameobjects.actors.actor import Player
 from game.gameobjects.world import World
 from game.gameobjects.room import Room
 from game.gameobjects.item import Item
@@ -15,6 +12,26 @@ from game.gameobjects.exit import Exit
 GOALS:
     EVERY OBJECT IS FLAT
     EVERY OBJECT HOLDS ITS LOCATION
+
+
+Game
+    World
+        Room
+            Exit
+            Actor
+                Item
+            Item
+
+
+i_name
+d_name
+descriptions
+flags
+exits
+inventory
+stats
+actions
+aliases
 
 
 """
@@ -34,8 +51,7 @@ def build_actions(game):
 def build_world(game):
     world_file = game.base_dir + "/world.json"
     data = datahelpers.load_json(world_file)
-    parent = game
-    return World(parent, **data)
+    return World(game, **data)
 
 
 def build_rooms(game):
@@ -45,64 +61,47 @@ def build_rooms(game):
     for room in rooms:
         name = room[0]
         data = room[1]
-        parent = game.world
-        new_room = Room(parent, **data)
+        new_room = Room(game, **data)
+        new_room.g_exits = build_exits(new_room, new_room.exits)
         built_rooms[name] = new_room
 
     return built_rooms
 
 
-def build_exits(game):
-    exit_dir = game.base_dir + "/exits"
-    for room in game.rooms:
-        built_exits = []
-        for exit_data in game.rooms[room].exits:
-            exit_name = exit_data["exit"]
-            filename = exit_name + ".json"
-            path = os.path.join(exit_dir, filename)
-            data = datahelpers.load_json(path)
-            parent = room
-            c_room = game.rooms[exit_data["room"]]
-            new_exit = Exit(parent=parent, c_room=c_room, **data)
-            built_exits.append(new_exit)
-        game.rooms[room].exits = built_exits
+def build_exits(room, exits):
+    built_exits = {}
+    for exit in exits:
+        print(exit)
+        name = exit["i_name"]
+        data = exit
+        new_exit = Exit(room, **data)
+        built_exits[name] = new_exit
+
+    return built_exits
 
 
-def build_actors(game, parent, actors):
+def build_actors(game):
     actor_dir = game.base_dir + "/actors"
-    sys.path.append(actor_dir + "/scripts")
-    built_actors = []
-    for new_actor in actors:
-        built_actors.append(build_actor(game, actor_dir, new_actor, parent))
+    built_actors = {}
+    actors = datahelpers.get_all_from_dir(actor_dir)
+    for actor in actors:
+        name = actor[0]
+        data = actor[1]
+        data["script_dir"] = actor_dir + "/scripts"
+        new_actor = Actor.get_actor(game, **data)
+        built_actors[name] = new_actor
+
     return built_actors
 
 
-def build_actor(game, dir, name, parent):
-    filename = name + ".json"
-    path = os.path.join(dir, filename)
-    data = datahelpers.load_json(path)
-    data["script_dir"] = dir + "/scripts"
-    data["actions"] = [game.actions[action] for action in data["actions"]]
-    new_actor = Actor.get_actor(parent, **data)
-    # loading item objects in inventory after actor object instantiated
-    new_actor.inventory = build_items(game, new_actor,
-                                      new_actor.inventory)
-    if isinstance(new_actor, Player):
-        game.pc = new_actor
-    return new_actor
-
-
-def build_items(game, parent, items):
+def build_items(game):
     item_dir = game.base_dir + "/items"
-    built_items = []
+    built_items = {}
+    items = datahelpers.get_all_from_dir(item_dir)
     for item in items:
-        built_items.append(build_item(game, item_dir, item, parent))
+        name = item[0]
+        data = item[1]
+        new_item = Item(game, **data)
+        built_items[name] = new_item
+
     return built_items
-
-
-def build_item(game, dir, name, parent):
-    filename = name + ".json"
-    path = os.path.join(dir, filename)
-    data = datahelpers.load_json(path)
-    data["action"] = game.actions[data["action"]]
-    return Item(parent, **data)

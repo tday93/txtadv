@@ -35,7 +35,7 @@ def parse_player_input(game, player, use_text):
 
 def get_action(player, a_name):
 
-    actions = [action for action in player.actions
+    actions = [action for action in list(player.parent.actions.values())
                if name_check(a_name, action)]
     if len(actions) == 1:
         return actions[0]
@@ -61,17 +61,15 @@ def get_possible_targets(player):
             Exits,
             Actions?
     """
-    other_actors = player.parent.actors
-    room = [player.parent]
-    items = player.inventory
-    exits = [exit for exit in player.parent.exits if exit.visible(player)]
-    actions = player.actions
+    other_actors = list(player.parent.actors.values())
+    room = list(player.parent.rooms.values())
+    items = list(player.parent.items.values())
+    actions = list(player.parent.actions.values())
 
-    return other_actors + room + items + exits + actions
+    return other_actors + room + items + actions
 
 
 def name_check(name, thing):
-
     checklist = [name == thing.i_name, name == thing.d_name,
                  name in thing.aliases, name == "all"]
 

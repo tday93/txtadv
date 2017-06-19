@@ -1,8 +1,9 @@
 import importlib
-from game.baseclasses.stattable import Stattable
+import sys
+from game.baseclasses.defaultobject import DefaultObject
 
 
-class Actor(Stattable):
+class Actor(DefaultObject):
 
     """ actors are stattables tht can use actions
         actors can contain items
@@ -20,7 +21,7 @@ class Actor(Stattable):
 
     def use_action(self, action, target, **kwargs):
         if action is not None and target is not None:
-            if action in self.actions:
+            if action.i_name in self.actions:
                 action.do_action(self, target, **kwargs)
 
     def is_attackable(self):
@@ -72,6 +73,8 @@ class Player(Actor):
 
     def __init__(self, parent, **kw):
         super().__init__(parent, **kw)
+        # for now, register self as PC
+        self.parent.pc = self
 
 
 class AutoActor(Actor):
@@ -87,6 +90,7 @@ class AutoActor(Actor):
         self.load_script()
 
     def load_script(self):
+        sys.path.append(self.script_dir)
         self.script_mod = importlib.import_module(self.script_name)
         self.script = self.script_mod.get_script()
 

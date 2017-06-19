@@ -8,6 +8,5 @@ class Room(Actor):
 
     def __init__(self, parent, **kw):
         super().__init__(parent, **kw)
-        self.actors = kw["actors"]
-        self.exits = kw["exits"]
         self.category = "Room"
+        self.g_actors = [parent.get_actor(actor) for actor in self.actors]

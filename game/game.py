@@ -3,7 +3,7 @@ import os
 import logging
 import atexit
 from ui import Commander
-from game.helpers import datahandlers
+from game.helpers import newdatahandle
 from game.helpers.input_parse import parse_player_input as parse_input
 
 logger = logging.getLogger("txtadv")
@@ -24,22 +24,22 @@ class Game(object):
 
     def __init__(self, base_dir):
         self.base_dir = base_dir
-        self.pc = None
         # load game
-        self.world = datahandlers.build_world(self)
-        self.actions = datahandlers.build_actions(self)
-        # rooms, actors, and items are covered by build_rooms()
-        self.rooms = datahandlers.build_rooms(self)
-        self.world.rooms = self.rooms
-        datahandlers.build_exits(self)
+        self.world = newdatahandle.build_world(self)
+        self.actors = newdatahandle.build_actors(self)
+        self.actions = newdatahandle.build_actions(self)
+        self.items = newdatahandle.build_items(self)
+        self.rooms = newdatahandle.build_rooms(self)
 
     def game_tick(self, player_input):
 
         # world acts
         # run npc shit
+        """
         for room in self.rooms:
             for actor in self.rooms[room].actors:
                 actor.do_action()
+        """
         # player acts
         # REWRITE HAPPENING HERE
         try:
@@ -57,6 +57,27 @@ class Game(object):
 
     def set_ui(self, ui):
         self.ui = ui
+
+    def get_gameobject(self, a_name, i_name):
+        bucket = getattr(self, a_name)
+        return bucket[i_name]
+
+    # convenience methods for the above
+
+    def get_item(self, i_name):
+        return self.get_gameobject("items", i_name)
+
+    def get_room(self, i_name):
+        return self.get_gameobject("rooms", i_name)
+
+    def get_actor(self, i_name):
+        return self.get_gameobject("actors", i_name)
+
+    def get_action(self, i_name):
+        return self.get_gameobject("actions", i_name)
+
+    def get_exit(self, i_name):
+        return self.get_gameobject("exits", i_name)
 
 
 def save_game(save_file, game_obj):

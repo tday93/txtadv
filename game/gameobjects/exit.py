@@ -1,8 +1,8 @@
 from game.helpers.helpers import check_conditions
-from game.baseclasses.flaggable import Flaggable
+from game.baseclasses.defaultobject import DefaultObject
 
 
-class Exit(Flaggable):
+class Exit(DefaultObject):
 
     """ an exit is a path to a room
         exits are only visible/usable if certain conditions are met
@@ -14,7 +14,7 @@ class Exit(Flaggable):
 
     def __init__(self, parent, **kw):
         super().__init__(parent, **kw)
-        self.room = kw["c_room"]
+        # self.room = kw["c_room"]
         self.conditions = kw["conditions"]
         self.category = "Exit"
 

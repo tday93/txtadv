@@ -1,4 +1,5 @@
 from game.gameobjects.exit import Exit
+from game.baseclasses.defaultobject import DefaultObject
 from game.baseclasses.describable import Describable
 from game.gameobjects.actors.actor import Actor
 from game.gameobjects.item import Item
@@ -112,12 +113,12 @@ class Examine(Action):
 
     def do_action(self, actor, target, **kwargs):
 
-        if isinstance(target, Describable):
+        if isinstance(target, DefaultObject):
             description = target.describe(actor)
             self.game.output_text(description)
         elif isinstance(target, list):
             for item in target:
-                if isinstance(item, Describable):
+                if isinstance(item, DefaultObject):
                     description = item.describe(actor)
                     self.game.output_text(description)
 

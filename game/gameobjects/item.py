@@ -1,7 +1,7 @@
-from game.baseclasses.stattable import Stattable
+from game.baseclasses.defaultobject import DefaultObject
 
 
-class Item(Stattable):
+class Item(DefaultObject):
 
     """ items are stattables with a !!!single!!! action attached i
         this action is activated with the USE action by an actor """

@@ -1,7 +1,7 @@
-from game.baseclasses.flaggable import Flaggable
+from game.baseclasses.defaultobject import DefaultObject
 
 
-class World(Flaggable):
+class World(DefaultObject):
     """ the world object holds all rooms, and global flags
         its parent is the game object """
 
